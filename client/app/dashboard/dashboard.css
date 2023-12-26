@@ -1,0 +1,9 @@
+.page-title {
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.char {
+	opacity: 0;
+	transform: translateY(115px);
+	transition: transform 500ms;
+}
