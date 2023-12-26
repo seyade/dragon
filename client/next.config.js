@@ -9,10 +9,14 @@ const nextConfig = {
 				port: "",
 				pathname: "/a/**",
 			},
+			{
+				protocol: "https",
+				hostname: "s.gravatar.com",
+				port: "",
+				pathname: "/avatar/**",
+			},
 		],
 	},
 };
-
-// https://lh3.googleusercontent.com/a/ACg8ocKBVQfni-QVjdMiu5CH5bTmXQhE9hqV8etdGRw84pkG=s96-c
 
 module.exports = nextConfig;

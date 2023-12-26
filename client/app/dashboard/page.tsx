@@ -1,14 +1,21 @@
 "use client";
+
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import SplitType from "split-type";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
+// icons
+import { GoHome, GoPeople, GoProject } from "react-icons/go";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { BsChatSquare } from "react-icons/bs";
+
 import "./dashboard.css";
+import Link from "next/link";
 
 const Dashboard = () => {
-	const container = useRef<HTMLElement>(null);
+	const container = useRef<HTMLDivElement>(null);
 	const { user, error, isLoading } = useUser();
 
 	useGSAP(
@@ -48,17 +55,48 @@ const Dashboard = () => {
 		);
 
 	return (
-		<div className="container w-full mx-auto p-10">
-			<header>
-				<h1 className="font-bold text-2xl">Dashboard</h1>
-			</header>
-			<main ref={container} className="flex w-full justify-center items-center">
-				<h2
-					className="page-title font-extrabold text-7xl"
-					style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}
-				>
-					Welcome to the Dashboard
-				</h2>
+		<div ref={container} className="grid grid-cols-12 gap-4 h-full w-full p-4">
+			<aside className="col-span-1 w-1/2 flex flex-col items-center bg-slate-900 text-white p-2 rounded-3xl text-3xl">
+				<ul className="py-5">
+					<li className="mb-8">
+						<Link href={"/"}>
+							<GoHome />
+						</Link>
+					</li>
+					<li className="mb-8">
+						<LuLayoutDashboard />
+					</li>
+					<li className="mb-8">
+						<Link href={"/"}>
+							<GoPeople />
+						</Link>
+					</li>
+					<li className="mb-8">
+						<Link href={"/"}>
+							<GoProject />
+						</Link>
+					</li>
+					<li className="mb-8">
+						<Link href={"/"}>
+							<BsChatSquare />
+						</Link>
+					</li>
+				</ul>
+			</aside>
+			<main className="col-span-11">
+				<header>
+					<h1 className="page-title font-bold text-2xl">{user?.name}</h1>
+					<h2
+						className="page-title font-extrabold text-5xl"
+						style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}
+					>
+						Welcome to the Dashboard
+					</h2>
+				</header>
+
+				<section>
+					<h3>Dashboard content</h3>
+				</section>
 			</main>
 		</div>
 	);

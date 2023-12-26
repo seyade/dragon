@@ -10,7 +10,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Dragon - Choose your Cofounder carefully",
+	title: "Dragon - Choose your Cofounders wisely",
 	description: "Platform where Cofounders are on steroid",
 };
 
@@ -23,9 +23,11 @@ export default function RootLayout({
 		<html lang="en">
 			<UserProvider>
 				<body className={inter.className}>
-					<Header />
-					{children}
-					<Footer />
+					<div className="h-screen">
+						<Header />
+						{children}
+						<Footer />
+					</div>
 				</body>
 			</UserProvider>
 		</html>
