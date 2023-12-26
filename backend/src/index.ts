@@ -11,10 +11,10 @@ dotenv.config();
 const config = {
 	authRequired: false,
 	auth0Logout: true,
-	secret: process.env.NEXT_APP_AUTH_0_SECRET,
-	baseURL: process.env.NEXT_APP_AUTH_0_BASEURL,
-	clientID: process.env.NEXT_APP_AUTH_0_CLIENTID,
-	issuerBaseURL: process.env.NEXT_APP_AUTH_0_ISSUER_BASEURL,
+	secret: process.env.NEXT_APP_AUTH0_SECRET,
+	baseURL: process.env.NEXT_APP_AUTH0_BASEURL,
+	clientID: process.env.NEXT_APP_AUTH0_CLIENTID,
+	issuerBaseURL: process.env.NEXT_APP_AUTH0_ISSUER_BASEURL,
 };
 
 app.use(cors());
@@ -24,7 +24,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/auth", (req, res) => {
 	res.status(200).json({
-		message: "Dragon platform on!",
+		appName: "Dragon",
+		appVersion: "1.0.0",
+		message: "Dragon platform launched!",
 		isAuthenticated: req.oidc.isAuthenticated(),
 	});
 });
