@@ -10,7 +10,7 @@ const Header = () => {
 	console.log("USER---", user);
 
 	return (
-		<header className="flex justify-between items-center w-full py-4 px-8 bg-zinc-100">
+		<header className="flex justify-between items-center w-full py-4 px-8 bg-zinc-50 border-b border-b-slate-200">
 			<a href="/" className="flex items-center font-extrabold text-3xl">
 				Dragon<span className="text-blue-600">.</span>
 			</a>
