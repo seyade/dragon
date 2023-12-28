@@ -1,13 +1,34 @@
 "use client";
 
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
 
 const Header = () => {
 	const { user, isLoading } = useUser();
-
+	const [returnPage, setReturnPage] = useState("");
 	console.log("USER---", user);
+
+	useEffect(() => {
+		if (user) {
+			// Example async function to fetch additional user data
+			const fetchUserData = () => {
+				try {
+					// // Replace this with your actual backend call
+					// const response = await fetch(`/api/userdata?userId=${user.sub}`);
+					// const data = await response.json();
+						setReturnPage('/dashboard' //data.nextPage
+							|| '/dashboard');
+
+				} catch (error) {
+					console.error('Failed to fetch user data:', error);
+					// Handle error appropriately
+				}
+			};
+
+			fetchUserData();
+		}
+	}, [user]);
 
 	return (
 		<header className="flex justify-between items-center w-full py-4 px-8 bg-zinc-50 border-b border-b-slate-200">
@@ -53,7 +74,7 @@ const Header = () => {
 				) : (
 					<a
 						className="flex items-center justify-center py-2 px-4 bg-slate-700 text-white rounded-full"
-						href="/api/auth/login?returnTo=/dashboard"
+						href={`/api/auth/login?returnTo=${encodeURIComponent(returnPage)}`}
 					>
 						Login
 					</a>
