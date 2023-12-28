@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { LuUser2 } from "react-icons/lu";
 import Image from "next/image";
+import Link from "next/link";
+
+import Navigation from "@/components/navigation";
 
 const Header = () => {
 	const [isUserPanelOpen, setIsUserPanelOpen] = useState(false);
@@ -21,19 +25,7 @@ const Header = () => {
 			</a>
 
 			<div className={`flex items-center ${!user && !isLoading && "w-full"}`}>
-				{!user && !isLoading && (
-					<ul className="flex mx-auto font-semibold text-indigo-900">
-						<li className="mx-5">
-							<a href="/pricing">Pricing</a>
-						</li>
-						<li className="mx-5">
-							<a href="/about">About us</a>
-						</li>
-						<li className="mx-5">
-							<a href="/contact">Contact us</a>
-						</li>
-					</ul>
-				)}
+				{!user && !isLoading && <Navigation />}
 
 				{user ? (
 					<>
@@ -55,8 +47,11 @@ const Header = () => {
 							</button>
 
 							{isUserPanelOpen && (
-								<div className="absolute bg-slate-400 p-3 rounded-xl">
-									User panel
+								<div className="absolute bg-slate-100 p-4 rounded-xl shadow-lg w-full">
+									<Link href="/profile" className="flex items-center">
+										<LuUser2 />{" "}
+										<span className="font-semibold ml-1">Profile</span>
+									</Link>
 								</div>
 							)}
 						</div>
