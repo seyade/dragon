@@ -7,38 +7,18 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Navigation from "@/components/navigation";
+import {router} from "next/client";
 
 const Header = () => {
 	const [isUserPanelOpen, setIsUserPanelOpen] = useState(false);
 	const { user, isLoading } = useUser();
-	const [returnPage, setReturnPage] = useState("");
+	let [returnPage, setReturnPage] = useState("");
 	console.log("USER---", user);
 
 	const toggleUserPanel = () => {
 		setIsUserPanelOpen(!isUserPanelOpen);
 	};
 
-	useEffect(() => {
-		if (user) {
-			// Example async function to fetch additional user data
-				try {
-			const fetchUserData = () => {
-					// const response = await fetch(`/api/userdata?userId=${user.sub}`);
-					// // Replace this with your actual backend call
-					// const data = await response.json();
-						setReturnPage('/dashboard' //data.nextPage
-							|| '/dashboard');
-				} catch (error) {
-
-					console.error('Failed to fetch user data:', error);
-				}
-					// Handle error appropriately
-			};
-
-			fetchUserData();
-		}
-
-	}, [user]);
 	return (
 		<header className="flex justify-between items-center w-full py-4 px-8 bg-zinc-50 border-b border-b-slate-200">
 			<a href="/" className="flex items-center font-extrabold text-3xl">
@@ -87,7 +67,7 @@ const Header = () => {
 				) : (
 					<a
 						className="flex items-center justify-center py-2 px-4 bg-slate-700 text-white rounded-full"
-						href={`/api/auth/login?returnTo=${encodeURIComponent(returnPage)}`}
+						href="/api/auth/login?returnTo=/post-login"
 					>
 						Login
 					</a>
