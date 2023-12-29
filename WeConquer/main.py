@@ -1,7 +1,9 @@
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from app.routers.registration import registration_router
 
 app = FastAPI()
+app.include_router(registration_router)
 
 app.add_middleware(
     CORSMiddleware,

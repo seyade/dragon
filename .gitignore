@@ -42,3 +42,5 @@ next-env.d.ts
 
 #Pycache
 WeConquer/__pycache__/
+
+WeConquer/app/routers/__pycache__/
