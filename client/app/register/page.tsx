@@ -10,7 +10,7 @@ const Register = () => {
 		agreeToTerms: false,
 	});
 
-	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleInputChange = (e) => {
 		const { name, value, type, checked } = e.target;
 		setFormData({
 			...formData,
@@ -18,7 +18,7 @@ const Register = () => {
 		});
 	};
 
-	const handleSubmit = async ( e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (!formData.agreeToTerms) {
 			alert("You must agree to the terms.");
