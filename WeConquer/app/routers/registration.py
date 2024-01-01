@@ -1,11 +1,19 @@
 from fastapi import APIRouter, Request
-
+from db import db
 registration_router = APIRouter()
 @registration_router.post("/registration/")
 async def read_users(request: Request):
-    incoming_json = {'fullName': 'Hilmi Terzi', 'sex': 'male', 'age': '25', 'country': 'USA', 'agreeToTerms': True}
+    request = await request.json()
+    auth_provider_id = request.get("auth_provider_id")
+    data = {
+        "email": request.get("email"),
+        "full_name": request.get("full_name"),
+        "user_status": "pricing"
+    }
+    query = f"users?auth_provider_id=eq.{auth_provider_id}"
+    db_response = await db(query, request, "post")
+    print(db_response)
     #TODO Call db and save the data
     #TODO User Status = Subscription
-    request = await request.json()
     print(request)
-    return [{"succesfull": 200}]
+    return {"user_status": "pricing", "response_status": 200}

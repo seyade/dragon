@@ -1,8 +1,13 @@
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from app.routers.post_login import login_router
 from app.routers.registration import registration_router
 
+from app.routers.judge import judge_router
+
 app = FastAPI()
+app.include_router(login_router)
+app.include_router(judge_router)
 app.include_router(registration_router)
 
 app.add_middleware(
@@ -12,36 +17,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.post("/authenication_exchange/")
-async def authenication_exchange(request: Request):
-    try:
-        authenication_exchange = await authenication_exchanges(request)
-    except Exception as e:
-         raise HTTPException(status_code=500, detail=str(e))
-
-    
-    return authenication_exchange
-    
-async def authenication_exchanges(request):
-
-    request = await request.json()
-    print(request)
-    return {"message": "Hello World"}
-
-# @app.post("/calculation")
-# async def chatbot(request: Request):
-
-#     try:
-#         traits_json = await get_traits_json(request)
-
-#     except Exception as e:
-#         raise HTTPException(status_code=500, detail=str(e))
-    
-#     if not traits_json:
-#         raise HTTPException(status_code=500, detail="The response of the chatbot is not a valid JSON.")
-#     #TODO if traits_json is a valid json, use matchTraitsWithEntrepeneurs to get the matches_entrepeneurs
-#     if traits_json:
-#         matches_entrepeneurs = await matchTraitsWithEntrepeneurs(traits_json)
-#     return matches_entrepeneurs

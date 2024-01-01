@@ -1,16 +1,19 @@
 'use client'
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from 'next/navigation';
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 
 const Register = () => {
 	const router = useRouter();
+	const { user, isLoading } = useUser();
 	const [formData, setFormData] = useState({
 		fullName: '',
 		sex: '',
 		age: '',
 		country: '',
 		agreeToTerms: false,
+		auth_provider_id: user?.sub
 	});
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -27,6 +30,7 @@ const Register = () => {
 			alert("You must agree to the terms.");
 			return;
 		}
+
 		try {
 			const response = await fetch('http://127.0.0.1:8000/registration/', {
 				method: 'POST',
@@ -39,7 +43,7 @@ const Register = () => {
 				throw new Error('Network response was not ok');
 			}
 			const data = await response.json();
-			console.log(data);
+			localStorage.setItem('userID', data.userID);
 			router.push('/pricing')
 			// Handle success (redirect, show message, etc.)
 		} catch (error) {

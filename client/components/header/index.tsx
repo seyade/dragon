@@ -12,7 +12,6 @@ import {router} from "next/client";
 const Header = () => {
 	const [isUserPanelOpen, setIsUserPanelOpen] = useState(false);
 	const { user, isLoading } = useUser();
-	let [returnPage, setReturnPage] = useState("");
 	console.log("USER---", user);
 
 	const toggleUserPanel = () => {
