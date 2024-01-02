@@ -11,7 +11,7 @@ async def read_users(request: Request):
         "user_status": "pricing"
     }
     query = f"users?auth_provider_id=eq.{auth_provider_id}"
-    db_response = await db(query, request, "post")
+    db_response = await db(query, data, "post")
     print(db_response)
     #TODO Call db and save the data
     #TODO User Status = Subscription

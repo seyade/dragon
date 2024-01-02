@@ -1,6 +1,7 @@
 import React from "react";
 
 const Pricing = () => {
+	// @ts-ignore
 	return (
 		<section className="relative z-10 overflow-hidden bg-white pb-12 pt-20 dark:bg-dark lg:pb-[90px] lg:pt-[120px]">
 			<div className="container mx-auto">
@@ -102,7 +103,7 @@ const PricingCard = ({
 					</p>
 					<div className="mb-9 flex flex-col gap-[14px]">{children}</div>
 					<a
-						href="/#"
+						href={`/verify_payment?${type.toLowerCase()}`}
 						className={` ${
 							active
 								? "block w-full rounded-md border border-primary bg-primary p-3 text-center text-base font-medium text-white transition hover:bg-opacity-90"

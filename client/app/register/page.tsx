@@ -44,7 +44,8 @@ const Register = () => {
 			}
 			const data = await response.json();
 			localStorage.setItem('userID', data.userID);
-			router.push('/pricing')
+			router.push(`/${data.user_status}`);
+
 			// Handle success (redirect, show message, etc.)
 		} catch (error) {
 			console.error("Error during API call", error);
