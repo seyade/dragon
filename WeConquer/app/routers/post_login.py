@@ -11,7 +11,11 @@ async def post_login(request: Request):
     query = f"users?auth_provider_id=eq.{auth_provider_id}"
     db_response = await db(path = query, method = "get")
     # if respose_ code says it doesn't exist, do a post request.
+    print("Does the user exist?")
+    print(db_response)
     db_response = db_response.json()
+    print(db_response)
+
     # TODO POST IF NON EXISTING USER
     if db_response  != []:
         userStatus = db_response[0]["user_status"]

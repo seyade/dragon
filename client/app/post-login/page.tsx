@@ -32,10 +32,8 @@ const PostLogin = () => {
                 }
 
                 const data = await response.json();
-                console.log("Response received: ", data); // Debug log
 
-                const userStatus = data.userStatus;
-                router.push(`/${userStatus}`);
+                router.push(`/${data.user_status}`);
             } catch (error) {
                 console.error("Error during API call", error);
             }
