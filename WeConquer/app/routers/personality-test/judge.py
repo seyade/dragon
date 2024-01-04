@@ -5,12 +5,13 @@ import openai
 from dotenv import load_dotenv
 import os
 import json
-from models import SubmitAnswersRequest
+from models import SubmitAnswers, Answer
+from db import db
 
 load_dotenv()
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
-async def judge(answers: SubmitAnswersRequest):
+async def judge(answers: SubmitAnswers):
 
 
     scores = []
@@ -20,14 +21,14 @@ async def judge(answers: SubmitAnswersRequest):
         retries = 2
         while retries > 0:
 
-            final_prompt = answer.prompt.format(answer=answer.answer_text)
+            final_prompt = answer.question_prompt.format(answer=answer.answer_text)
 
             messages = [{'role': 'system', 'content': final_prompt}]
 
             response = await openai.ChatCompletion.acreate(
                         model='gpt-3.5-turbo-1106',
                         messages=messages,
-                        # TODO JSON mode on, there might be an error
+                        # TODO JSON mode on, never tested it
                         response_format={"type": "json_object"},
                         temperature=0
             )
@@ -37,6 +38,8 @@ async def judge(answers: SubmitAnswersRequest):
             try:
                 response_message = json.loads(response_message)
                 scores.append(response_message["score"])
+                answer.answer_score = response_message["score"]
+                await save_score(answer)
 
 
             except ValueError as e:
@@ -48,8 +51,22 @@ async def judge(answers: SubmitAnswersRequest):
                     # Handle the failure case, e.g., log the error, append a default score, etc.
                     # For example, append None or a default score value:
                     scores.append(None)
-            response = {"response": response_message}
-    return scores
+
+
+    valid_scores_sum = sum(score for score in scores if score is not None)
+
+    # Count the number of valid scores
+    valid_scores_count = sum(1 for score in scores if score is not None)
+
+    # Calculate the average, ensuring to avoid division by zero
+    average_score = round(valid_scores_sum / valid_scores_count) if valid_scores_count > 0 else None
+
+    return average_score
 async def error_table_add_problem(answer: Answer, response_message: str):
 
+    pass
+
+async def save_score(answer: Answer):
+    #save score to db
+    response = await db(path = "user_answers", method = "post", data = answer.dict())
     pass

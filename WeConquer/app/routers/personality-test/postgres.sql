@@ -17,15 +17,16 @@ CREATE TABLE user_answers (
     user_id INT REFERENCES users(user_id),
     question_id INT REFERENCES questions(question_id),
     answer_text TEXT,
-    answer_score DECIMAL(5, 2), -- New field
+    answer_score INT,
     is_copy_paste BOOLEAN DEFAULT FALSE,
-    answer_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    answered_in_seconds INT,
+    question_prompt TEXT
 );
 
 CREATE TABLE personality_test_scores (
     user_id INT REFERENCES users(user_id),
     trait_type VARCHAR(100),
-    score DECIMAL(5, 2),
+    score INT,
     PRIMARY KEY (user_id, trait_type)
 );
 
@@ -35,7 +36,6 @@ CREATE TABLE user_test_sessions (
     batch_id INT REFERENCES question_batches(batch_id),
     start_time TIMESTAMP,
     end_time TIMESTAMP,
-    last_question_answered INT,
     is_batch_completed BOOLEAN DEFAULT FALSE
 );
 

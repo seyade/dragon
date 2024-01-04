@@ -1,7 +1,7 @@
 from typing import List
 
 from db import db
-from models import Question, StartTestRequest, QuestionBatch, User, Answer, SubmitAnswersRequest
+from models import Question, StartTestRequest, QuestionBatch, User, Answer, SubmitAnswers
 from judge import judge
 
 
@@ -29,11 +29,12 @@ async def get_first_question_batch(request : StartTestRequest):
     question_batch: QuestionBatch = await get_question_batch(user.tier_type, 1)
     return question_batch
 
-async def check_answers(answer: SubmitAnswersRequest):
+async def check_answers(answer: SubmitAnswers):
     #TODO
 
     scores = await judge(answer)
-    trait =
+    trait: str = answer.trait
+
     # Save the answers to the answers table
     # answers table consists of the following fields; user_id, answer_id, question_id, answer_text, answer_score, is_copy_paste, answer_time
     #TODO

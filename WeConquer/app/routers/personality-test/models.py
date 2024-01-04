@@ -10,14 +10,16 @@ class Question(BaseModel):
     sub_trait: str
 
 class Answer(BaseModel):
+    answer_id: int | None
     user_id: int
-    answer_id: int
     question_id: int
     answer_text: str
-    answer_score: float
-    is_copy_paste: bool
-    answer_time: str
-    prompt: str
+    answer_score: int
+    is_copy_paste: bool | False
+    answered_in_seconds: str
+    question_prompt: str
+
+
 class StartTestRequest(BaseModel):
     user_id: int
 
@@ -27,8 +29,9 @@ class QuestionBatch(BaseModel):
     tier: str | None
     questions: List[Question]  # Define the Question model based on your needs
 
-class SubmitAnswersRequest(BaseModel):
+class SubmitAnswers(BaseModel):
     user_id: int
+    trait: str
     answers: List[Answer]  # Define the Answer model based on your needs
 
 class User(BaseModel):
