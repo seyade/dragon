@@ -17,6 +17,7 @@ class Answer(BaseModel):
     answer_score: float
     is_copy_paste: bool
     answer_time: str
+    prompt: str
 class StartTestRequest(BaseModel):
     user_id: int
 

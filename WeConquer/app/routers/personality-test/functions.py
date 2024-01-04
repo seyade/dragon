@@ -1,6 +1,8 @@
-from db import db
-from models import Question, StartTestRequest, QuestionBatch, User, Answer
+from typing import List
 
+from db import db
+from models import Question, StartTestRequest, QuestionBatch, User, Answer, SubmitAnswersRequest
+from judge import judge
 
 
 async def get_user_data(user_id: int):
@@ -27,8 +29,11 @@ async def get_first_question_batch(request : StartTestRequest):
     question_batch: QuestionBatch = await get_question_batch(user.tier_type, 1)
     return question_batch
 
-async def check_answers(request: Answer):
+async def check_answers(answer: SubmitAnswersRequest):
     #TODO
+
+    scores = await judge(answer)
+    trait =
     # Save the answers to the answers table
     # answers table consists of the following fields; user_id, answer_id, question_id, answer_text, answer_score, is_copy_paste, answer_time
     #TODO

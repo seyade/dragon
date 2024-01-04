@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import FastAPI, HTTPException
 from functions import get_first_question_batch, check_answers
 app = FastAPI()
@@ -13,7 +15,7 @@ async def start_test(request: StartTestRequest):
     return QuestionBatch(questions=first_batch)
 
 @app.post("/submit-answers/")
-async def submit_answers(answer: Answer):
+async def submit_answers(answer: List[Answer]):
     # Score each answer and update the database
 
     response = check_answers(answer)

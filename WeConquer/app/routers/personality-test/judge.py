@@ -1,0 +1,55 @@
+from typing import List
+
+from fastapi import APIRouter, Request
+import openai
+from dotenv import load_dotenv
+import os
+import json
+from models import SubmitAnswersRequest
+
+load_dotenv()
+openai.api_key = os.environ["OPENAI_API_KEY"]
+
+async def judge(answers: SubmitAnswersRequest):
+
+
+    scores = []
+    answers = answers.answers
+    for answer in answers:
+
+        retries = 2
+        while retries > 0:
+
+            final_prompt = answer.prompt.format(answer=answer.answer_text)
+
+            messages = [{'role': 'system', 'content': final_prompt}]
+
+            response = await openai.ChatCompletion.acreate(
+                        model='gpt-3.5-turbo-1106',
+                        messages=messages,
+                        # TODO JSON mode on, there might be an error
+                        response_format={"type": "json_object"},
+                        temperature=0
+            )
+
+            response_message = response["choices"][0]["message"]["content"]
+            #TODO json load
+            try:
+                response_message = json.loads(response_message)
+                scores.append(response_message["score"])
+
+
+            except ValueError as e:
+                retries -= 1  # Decrement the retry counter
+                #TODO Finish this function error_table_add_problem
+                await error_table_add_problem(answer, response_message)
+                if retries == 0:
+                    print(f"Failed to process after retries: {e}")
+                    # Handle the failure case, e.g., log the error, append a default score, etc.
+                    # For example, append None or a default score value:
+                    scores.append(None)
+            response = {"response": response_message}
+    return scores
+async def error_table_add_problem(answer: Answer, response_message: str):
+
+    pass
