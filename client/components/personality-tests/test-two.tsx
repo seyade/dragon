@@ -4,7 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import moment from "moment";
 import { LuClock5 } from "react-icons/lu";
 
-const TestOne = () => {
+import { questions } from "@/app/constants/questions";
+
+const TestTwo = () => {
 	const [time, setTime] = useState(0);
 	const [running, setRunning] = useState(true);
 	const [timestamp, setTimestamp] = useState<string[]>([]);
@@ -54,10 +56,19 @@ const TestOne = () => {
 		return `${hours} : ${minutes} : ${seconds}`;
 	}
 
+	const [answerSelected, setAnswerSelected] = useState(false);
+	const [answerIndex, setAnswerIndex] = useState<number | null>(null);
+
+	function onAnswerSelected(index: number) {
+		console.log("ANSW:", questions[0].choices[index]);
+
+		setAnswerIndex(index);
+	}
+
 	return (
 		<section className="w-[756px] bg-white rounded-lg p-10 border">
 			<header className="flex justify-between items-center w-full mb-10">
-				<h1 className="font-bold text-3xl">Personality Test</h1>
+				<h1 className="font-extralight text-3xl">Personality Test</h1>
 				<span className="flex items-center">
 					<span className="text-2xl">
 						<LuClock5 />
@@ -70,20 +81,50 @@ const TestOne = () => {
 			</header>
 
 			<article>
-				<h2>Question 1 of 40</h2>
-				<h3 className="font-bold text-xl mb-10">
+				<h2 className="font-semibold text-slate-400">Question 1 / 5</h2>
+				<h3 className="font-normal text-xl mb-10">
 					Can you describe a situation where you realized your initial judgment
 					was biased or incorrect? How did you adjust your thinking?
 				</h3>
 
-				<textarea
-					className="border rounded-lg w-full mb-4 resize-none"
-					name="q01"
-					id=""
-					cols={30}
-					rows={10}
-					onBlur={getTimestamp}
-				/>
+				<div className="mb-8">
+					<p className="mb-6 font-bold text-slate-500">
+						You can select more than 1 option.
+					</p>
+					<ul className="grid grid-cols-2 gap-2">
+						{questions[0].choices.map((choice, index) => {
+							return (
+								<li
+									key={choice}
+									onClick={() => onAnswerSelected(index)}
+									className={`flex p-2 rounded items-center cursor-pointer transition duration-300 relative font-semibold ${
+										answerIndex === index
+											? "bg-slate-700 text-white"
+											: "bg-slate-100 hover:bg-slate-200"
+									}`}
+								>
+									<label htmlFor={`q1_answer_${index}`} className="relative">
+										<input
+											type="radio"
+											id="answer_one"
+											className="mr-3 hidden"
+											name={`q1_answer_${index}`}
+											checked={answerIndex === index}
+											onChange={() => onAnswerSelected(index)}
+										/>
+										<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full opacity-0 scale-0 transition-transform duration-300">
+											{answerIndex === index && (
+												<div className="w-full h-full bg-gray-800 rounded-full opacity-100 transform scale-100 transition-transform duration-300"></div>
+											)}
+										</div>
+										{choice}
+									</label>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+
 				<div>
 					<button className="bg-black text-white rounded-lg px-4 py-2">
 						Next
@@ -94,4 +135,4 @@ const TestOne = () => {
 	);
 };
 
-export default TestOne;
+export default TestTwo;
