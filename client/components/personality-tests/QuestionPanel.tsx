@@ -35,13 +35,14 @@ type Answer = {
 };
 
 const QuestionPanel = ({ questions: quiz }: QuestionPros) => {
-	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [time, setTime] = useState(0);
-	const [running, setRunning] = useState(true);
 	const [timestamp, setTimestamp] = useState<string[]>([]);
 	const timer: any = useRef();
+	const [running, setRunning] = useState(true);
 	const [startTime, setStartTime] = useState("00:00:00");
 	const [endTime, setEndTime] = useState("");
+
+	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [answer, setAnswer] = useState({
 		answer_id: 0,
 		user_id: 1,

@@ -1,4 +1,4 @@
-// Get from backend
+// Schema from backend
 // class QuestionBatch(BaseModel):
 //     batch_id: int
 //     batch_number: int
@@ -43,7 +43,7 @@ export const data = {
 	],
 };
 
-// Send to backend
+// Schema to backend
 // class SubmitAnswers(BaseModel):
 //     user_id: int
 //     trait: str
