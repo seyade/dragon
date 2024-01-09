@@ -1,11 +1,10 @@
-import TestOne from "@/components/personality-tests/test-one";
-import TestTwo from "@/components/personality-tests/test-two";
-import React from "react";
+import QuestionPanel from "@/components/personality-tests/QuestionPanel";
+import { data as questions } from "@/app/constants/questions";
 
 const Personaliy = () => {
 	return (
 		<section className="h-screen grid place-content-center bg-slate-900">
-			<TestTwo />
+			<QuestionPanel questions={questions} />
 		</section>
 	);
 };

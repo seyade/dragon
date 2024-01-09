@@ -1,3 +1,105 @@
+// Get from backend
+// class QuestionBatch(BaseModel):
+//     batch_id: int
+//     batch_number: int
+//     tier: str | None
+//     questions: List[Question]
+
+// class Question(BaseModel):
+//     question_id: int
+//     question_text: str
+//     trait_type: str
+//     sub_trait: str
+//     question_prompt: str
+
+export const data = {
+	batch_id: 1,
+	batch_number: 5,
+	tier: "free",
+	questions: [
+		{
+			question_id: 1,
+			question_text: "What do you really think of the matrix?",
+			trait_type: "str",
+			sub_trait: "str",
+			question_prompt: "str",
+		},
+		{
+			question_id: 2,
+			question_text:
+				"Can you describe a situation where you realized your initial judgment was biased or incorrect? How did you adjust your thinking?",
+			trait_type: "str",
+			sub_trait: "str",
+			question_prompt: "str",
+		},
+		{
+			question_id: 3,
+			question_text:
+				"How would you solve a problem in this period of chaos in society?",
+			trait_type: "str",
+			sub_trait: "str",
+			question_prompt: "str",
+		},
+	],
+};
+
+// Send to backend
+// class SubmitAnswers(BaseModel):
+//     user_id: int
+//     trait: str
+//     answers: List[Answer]
+
+// class Answer(BaseModel):
+//     answer_id: int | None
+//     user_id: int
+//     question_id: int
+//     answer_text: str
+//     answer_score: int
+//     is_copy_paste: bool | None
+//     answered_in_seconds: str
+//     question_prompt: str
+//     justification: str | None
+
+export const submittedData = {
+	user_id: 1,
+	trait: "str",
+	answers: [
+		{
+			answer_id: 1,
+			user_id: 1,
+			question_id: 1,
+			answer_text: "str",
+			answer_score: 30,
+			is_copy_paste: false,
+			answered_in_seconds: "00:01:25",
+			question_prompt: "str",
+			justification: "str",
+		},
+		{
+			answer_id: 2,
+			user_id: 1,
+			question_id: 2,
+			answer_text: "str",
+			answer_score: 40,
+			is_copy_paste: false,
+			answered_in_seconds: "00:01:25",
+			question_prompt: "str",
+			justification: "str",
+		},
+		{
+			answer_id: 3,
+			user_id: 1,
+			question_id: 3,
+			answer_text: "str",
+			answer_score: 39,
+			is_copy_paste: false,
+			answered_in_seconds: "00:01:25",
+			question_prompt: "str",
+			justification: "str",
+		},
+	],
+};
+
 export const questions = [
 	{
 		id: 1,

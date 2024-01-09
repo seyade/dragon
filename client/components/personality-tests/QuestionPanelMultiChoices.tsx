@@ -5,8 +5,9 @@ import moment from "moment";
 import { LuClock5 } from "react-icons/lu";
 
 import { questions } from "@/app/constants/questions";
+import { formatToTime } from "@/utils/formatToTime";
 
-const TestTwo = () => {
+const QuestionPanelMultiChoices = () => {
 	const [time, setTime] = useState(0);
 	const [running, setRunning] = useState(true);
 	const [timestamp, setTimestamp] = useState<string[]>([]);
@@ -44,18 +45,6 @@ const TestTwo = () => {
 		return () => clearInterval(timer.current);
 	}, [running]);
 
-	function formatToTime(time: number) {
-		let hours: string | number = Math.floor((time / 60 / 60) % 24);
-		let minutes: string | number = Math.floor((time / 60) % 60);
-		let seconds: string | number = Math.floor(time % 60);
-
-		hours = hours < 10 ? "0" + hours : hours;
-		minutes = minutes < 10 ? "0" + minutes : minutes;
-		seconds = seconds < 10 ? "0" + seconds : seconds;
-
-		return `${hours} : ${minutes} : ${seconds}`;
-	}
-
 	const [answerSelected, setAnswerSelected] = useState(false);
 	const [answerIndex, setAnswerIndex] = useState<number | null>(null);
 
@@ -81,7 +70,10 @@ const TestTwo = () => {
 			</header>
 
 			<article>
-				<h2 className="font-semibold text-slate-400">Question 1 / 5</h2>
+				<h2 className="font-semibold text-slate-400">
+					Question <span className="text-3xl text-slate-800 font-bold">1</span>{" "}
+					/ 5
+				</h2>
 				<h3 className="font-normal text-xl mb-10">
 					Can you describe a situation where you realized your initial judgment
 					was biased or incorrect? How did you adjust your thinking?
@@ -126,7 +118,13 @@ const TestTwo = () => {
 				</div>
 
 				<div>
-					<button className="bg-black text-white rounded-lg px-4 py-2">
+					<button
+						className="bg-black text-white rounded-lg px-4 py-2 disabled:bg-slate-500"
+						disabled={answerIndex === null}
+						onClick={() => {
+							console.log("Next");
+						}}
+					>
 						Next
 					</button>
 				</div>
@@ -135,4 +133,4 @@ const TestTwo = () => {
 	);
 };
 
-export default TestTwo;
+export default QuestionPanelMultiChoices;
