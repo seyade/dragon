@@ -23,7 +23,8 @@ const PostLogin = () => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        "auth_provider_id": user?.sub
+                        "auth_provider_id": user?.sub,
+                        "email": user?.email
                     })
                 });
 

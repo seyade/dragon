@@ -25,7 +25,7 @@ async def db(path: str, data: dict | list | None = None, method: str = "get"):
       r = await client.get(os.environ['SUPA_URL'] + "/" + path,
                            headers=Headers,
                            timeout=timeout)
-    elif method == "update":
+    elif method == "patch":
       r = await client.patch(os.environ['SUPA_URL'] + "/" + path,
                              headers=Headers,
                              json=data,

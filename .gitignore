@@ -44,3 +44,9 @@ next-env.d.ts
 WeConquer/__pycache__/
 
 WeConquer/app/routers/__pycache__/
+
+WeConquer/app/routers/personality_test/__pycache__/
+
+WeConquer/WeConquer/Lib/
+
+

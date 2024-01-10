@@ -5,12 +5,18 @@ import openai
 from dotenv import load_dotenv
 import os
 import json
-from models import SubmitAnswers, Answer
+from app.routers.personality_test.models import SubmitAnswers, Answer
 from db import db
 
 load_dotenv()
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
+
+async def testIt():
+    db_response = await db(path = "questions?question_id=eq.1", method = "get")
+    db_response = db_response.json()
+    answer = "I'm a very happy person"
+    final_prompt = db_response[0]["question_prompt"].format(answer=answer)
 async def judge(answers: SubmitAnswers):
 
 
