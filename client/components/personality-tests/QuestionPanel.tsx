@@ -41,6 +41,7 @@ const QuestionPanel = ({ questions: quiz }: QuestionPros) => {
 	const [running, setRunning] = useState(true);
 	const [startTime, setStartTime] = useState("00:00:00");
 	const [endTime, setEndTime] = useState("");
+	const [currentTime, setCurrentTime] = useState("");
 
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [answer, setAnswer] = useState({
@@ -57,11 +58,13 @@ const QuestionPanel = ({ questions: quiz }: QuestionPros) => {
 	const [answers, setAnswers] = useState<Answer[]>([]);
 
 	const onHandleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+		const { question_id } = quiz.questions[currentQuestion];
+
 		setAnswer({
-			answer_id: quiz.questions[currentQuestion].question_id,
+			answer_id: question_id,
 			user_id: 1,
-			question_id: quiz.questions[currentQuestion].question_id,
-			answer_text: event?.target.value,
+			question_id,
+			answer_text: event?.currentTarget.value,
 			answer_score: 0,
 			is_copy_paste: false,
 			answered_in_seconds: `${formatToTime(time)}`,
@@ -94,6 +97,10 @@ const QuestionPanel = ({ questions: quiz }: QuestionPros) => {
 
 		setTimestamp([stampTime, ...timestamp]);
 	}
+
+	useEffect(() => {
+		setCurrentTime(time);
+	}, [time]);
 
 	useEffect(() => {
 		if (running) {
