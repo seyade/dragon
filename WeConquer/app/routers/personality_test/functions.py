@@ -1,7 +1,7 @@
 from typing import List
 
 from db import db
-from app.routers.personality_test.models import Question, StartTestRequest, QuestionBatch, User, Answer, SubmitAnswers, UserSession, BatchPackage
+from app.routers.personality_test.models import  QuestionBatch, User, SubmitAnswers, UserSession, BatchPackage
 from app.routers.personality_test.judge import judge
 import random
 from datetime import datetime
@@ -82,21 +82,7 @@ async def check_answers(answers: SubmitAnswers):
 
     scores = await judge(answers)
 
-    # Save the answers to the answers table
-    # answers table consists of the following fields; user_id, answer_id, question_id, answer_text, answer_score, is_copy_paste, answer_time
-    #TODO
-    # Calculate the score for the current batch
-    #TODO
-    # Update the user sessions table to indicate that the current batch is completed and the next batch is sent.
-    # user_session consists of the following fields; user_id, batch_number, isCompleted
-    #TODO
-    # Check if the test is completed
-    #TODO
-    # If yes, return a message indicating test completion
-    #TODO
-    # If no, fetch and shuffle the next batch and return it
-    #TODO
-    # Return the next batch of questions
+
     return {"message": "Test completed"}
 
 

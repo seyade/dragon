@@ -44,7 +44,6 @@ class QuestionBatch(BaseModel):
 
 class SubmitAnswers(BaseModel):
     user_id: int
-    trait: str
     answers: List[Answer]
 class UserSession(BaseModel):
     session_id: int

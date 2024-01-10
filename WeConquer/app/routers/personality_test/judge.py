@@ -21,8 +21,8 @@ async def judge(answers: SubmitAnswers):
 
 
     scores = []
-    answers = answers.answers
-    for answer in answers:
+    userID = answers.user_id
+    for answer in answers.answers:
 
         retries = 2
         while retries > 0:
@@ -45,6 +45,7 @@ async def judge(answers: SubmitAnswers):
                 response_message = json.loads(response_message)
                 scores.append(response_message["score"])
                 answer.answer_score = response_message["score"]
+                answer.justification = response_message["justification"]
                 await save_score(answer)
 
 

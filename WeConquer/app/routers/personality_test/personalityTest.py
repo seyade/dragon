@@ -1,14 +1,10 @@
 from fastapi import  HTTPException, APIRouter, Request
 from app.routers.personality_test.models import Question, StartTestRequest, QuestionBatch, SubmitAnswers
 from app.routers.personality_test.functions import get_first_question_batch, check_answers
-from app.routers.personality_test.judge import judge, testIt
 
 personality_test_router = APIRouter()
 
-@personality_test_router.post("/test")
-async def test(request: Request):
-    It = await testIt()
-    return {"message": "Test successfully completed"}
+
 @personality_test_router.post("/start-test")
 async def start_test(request: Request):
     first_batch = await get_first_question_batch((await request.json())['user_id'])
