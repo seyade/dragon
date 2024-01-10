@@ -29,14 +29,17 @@ async def get_question_batch(user_tier: str, user_id):
     query_to_get_session = f"user_test_sessions?user_id=eq.{user_id}&order=session_id.desc&limit=1"
     session_response = await db(path=query_to_get_session, method="get")
     #IF session_response = 404, then it's a new user, so we need to create a new session.
+    print(session_response)
+
     session_response = session_response.json()
+
     print(session_response)
     if session_response == []:
         print(query_to_get_session)
         questions_first_time = await get_question_batch_for_first_time(user_tier, user_id)
         return questions_first_time
 
-    user_session = UserSession(**session_response.json()[0])
+    user_session = UserSession(**session_response[0])
 
     if user_session.amount_of_batches_left == 0:
         return {"test_status": "completed"}
@@ -62,11 +65,14 @@ async def get_question_batch(user_tier: str, user_id):
             get_questions_from_cached_batches.questions.append(question)
 
         cached_batch = await db(path="cached_batches_with_questions", data=random_question_batch.dict(), method="post")
+    remaining_batches.remove(random_batch_id)
 
+    # Append the random_batch_id to the finished_batches list
+    finished_batches.append(random_batch_id)
     data = {
-        "remaining_batches": remaining_batches.remove(random_batch_id),
+        "remaining_batches": remaining_batches,
         "amount_of_batches_left": user_session.amount_of_batches_left - 1,
-        "finished_batches": finished_batches.append(random_batch_id),
+        "finished_batches": finished_batches,
     }
 
     patch_user_session = await db(path = f"user_test_sessions?session_id=eq.{user_session.session_id}", data = data, method = "patch")
@@ -106,8 +112,7 @@ async def get_question_batch_for_first_time(user_tier, user_id):
     random_question_batch = QuestionBatch(**get_random_batch_response.json()[0])
     question_ids = random_question_batch.question_ids
 
-    get_questions_from_cached_batches = await db(
-        path=f"cached_batches_with_questions?batch_id=eq.{random_question_batch.batch_id}", method="get")
+    get_questions_from_cached_batches = await db(path=f"cached_batches_with_questions?batch_id=eq.{random_question_batch.batch_id}", method="get")
 
     get_questions_from_cached_batches = get_questions_from_cached_batches.json()
     if get_questions_from_cached_batches == []:
@@ -122,12 +127,14 @@ async def get_question_batch_for_first_time(user_tier, user_id):
     batch_ids = package.batch_ids
     # TODO Save that the user is in it's first batch.
     batch_ids.remove(random_batch_id)
+
     data = {
         "user_id": user_id,
         "finished_batches": [random_batch_id],
         "remaining_batches": batch_ids,
         "amount_of_batches_left": amount_of_batches_left
     }
+
     post_user_session = await db(path="user_test_sessions", data=data, method="post")
 
     return get_questions_from_cached_batches[0]
