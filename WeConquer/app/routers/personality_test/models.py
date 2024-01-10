@@ -49,10 +49,6 @@ class SubmitAnswers(BaseModel):
 class UserSession(BaseModel):
     session_id: int
     user_id: int
-
-    # start_time: datetime | None
-    # end_time: datetime | None
-    # batch_ids: List[int] = []
     finished_batches: List[int]
     amount_of_batches_left: int
     remaining_batches: List[int]
