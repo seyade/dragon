@@ -1,6 +1,6 @@
 from fastapi import  HTTPException, APIRouter, Request
 from app.routers.personality_test.models import Question, StartTestRequest, QuestionBatch, SubmitAnswers
-from app.routers.personality_test.functions import get_first_question_batch, check_answers
+from app.routers.personality_test.functions import get_first_question_batch, judge
 
 personality_test_router = APIRouter()
 
@@ -12,11 +12,11 @@ async def start_test(request: Request):
 
     # return QuestionBatch(questions=first_batch)
 @personality_test_router.post("/submit-answers/")
-async def submit_answers(answer: SubmitAnswers):
+async def submit_answers(answers: SubmitAnswers):
     # Score each answer and update the database
-    response = check_answers(answer)
+    scores = await judge(answers)
 
-    return {"message": "Test completed"}
+    return scores
 
 @personality_test_router.post("/complete-test")
 async def complete_test(request: StartTestRequest):

@@ -80,10 +80,11 @@ async def get_question_batch(user_tier: str, user_id):
 async def check_answers(answers: SubmitAnswers):
     #TODO
 
-    scores = await judge(answers)
+    scores = await judge(answers
+    )
 
 
-    return {"message": "Test completed"}
+    return scores
 
 
 async def get_question_batch_for_first_time(user_tier, user_id):

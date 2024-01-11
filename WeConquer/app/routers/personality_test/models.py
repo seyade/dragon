@@ -23,15 +23,16 @@ class Question(BaseModel):
     cheated: bool | None
 
 class Answer(BaseModel):
-    answer_id: int | None
+    user_id: int | None
     question_id: int
     answer_text: str
     answer_score: int | None
-    is_copy_paste: bool | None
-    answered_in_seconds: str
+    cheated: bool | None
+    answered_in_seconds: str | None
     question_prompt: str
+    trait_type: str
+    sub_trait: str
     justification: str | None
-
 
 class StartTestRequest(BaseModel):
     user_id: int
