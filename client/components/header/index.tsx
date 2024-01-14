@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { LuUser2 } from "react-icons/lu";
 import Image from "next/image";
 import Link from "next/link";
 
 import Navigation from "@/components/navigation";
+import {router} from "next/client";
 
 const Header = () => {
 	const [isUserPanelOpen, setIsUserPanelOpen] = useState(false);
 	const { user, isLoading } = useUser();
-
 	console.log("USER---", user);
 
 	const toggleUserPanel = () => {
@@ -66,7 +66,7 @@ const Header = () => {
 				) : (
 					<a
 						className="flex items-center justify-center py-2 px-4 bg-slate-700 text-white rounded-full"
-						href="/api/auth/login?returnTo=/dashboard"
+						href="/api/auth/login?returnTo=/post-login"
 					>
 						Login
 					</a>
