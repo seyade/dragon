@@ -39,8 +39,8 @@ const QuestionPanel = ({ questions: quiz }: QuestionPros) => {
 	const [timestamp, setTimestamp] = useState<string[]>([]);
 	const timer: any = useRef();
 	const [running, setRunning] = useState(true);
-	const [startTime, setStartTime] = useState("00:00:00");
-	const [endTime, setEndTime] = useState("");
+	const [startTime, setStartTime] = useState(null);
+	const [endTime, setEndTime] = useState(null);
 	const [currentTime, setCurrentTime] = useState("");
 
 	const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -74,10 +74,12 @@ const QuestionPanel = ({ questions: quiz }: QuestionPros) => {
 	};
 
 	const onHandleNext = () => {
+		setStartTime(formatToTime(time));
+
 		if (currentQuestion <= quiz.questions.length - 1) {
-			getTimestamp();
 			setAnswers(prev => [...prev, answer]);
 			setAnswer({ ...answer, answer_text: "" });
+			setEndTime(formatToTime(time));
 		}
 
 		setCurrentQuestion(currentQuestion + 1);
@@ -97,10 +99,6 @@ const QuestionPanel = ({ questions: quiz }: QuestionPros) => {
 
 		setTimestamp([stampTime, ...timestamp]);
 	}
-
-	useEffect(() => {
-		setCurrentTime(time);
-	}, [time]);
 
 	useEffect(() => {
 		if (running) {
