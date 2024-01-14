@@ -8,7 +8,7 @@ async def read_users(request: Request):
     data = {
         "email": request.get("email"),
         "full_name": request.get("full_name"),
-        "user_status": "pricing"
+        "user_status": "personality-test"
     }
     query = f"users?auth_provider_id=eq.{auth_provider_id}"
     db_response = await db(query, data, "post")

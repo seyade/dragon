@@ -24,15 +24,15 @@ async def judge(answers: SubmitAnswers):
 
             messages = [{'role': 'system', 'content': final_prompt}]
 
-            response = await client.chat.completions.create(
-                        model='gpt-4-1106-preview',
-                        messages=messages,
-                        # TODO JSON mode on, never tested it
-                        response_format={"type": "json_object"},
-                        temperature=0
-            )
-            response_message = response.choices[0].message.content
-            print(response_message)
+            # response = await client.chat.completions.create(
+            #             model='gpt-4-1106-preview',
+            #             messages=messages,
+            #             # TODO JSON mode on, never tested it
+            #             response_format={"type": "json_object"},
+            #             temperature=0
+            # )
+            # response_message = response.choices[0].message.content
+            # print(response_message)
 
             # response_message = json.loads(response_message)
             response_message ={
