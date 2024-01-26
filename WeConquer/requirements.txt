@@ -1,0 +1,10 @@
+fastapi==0.98.0
+pydantic==1.10.9
+python-dotenv==1.0.0
+requests==2.31.0
+urllib3==2.0.3
+uvicorn==0.22.0
+pytz
+httpx
+pydantic[email]
+openai

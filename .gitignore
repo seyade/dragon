@@ -38,3 +38,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.idea
+
+#Pycache
+WeConquer/__pycache__/
+
+WeConquer/app/routers/__pycache__/
+
+WeConquer/app/routers/personality_test/__pycache__/
+
+WeConquer/WeConquer/Lib/
+
+

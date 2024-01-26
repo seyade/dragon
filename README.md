@@ -1,6 +1,6 @@
 # Dragon project
 
-## It's a secret project LOL.
+## It's a secret project. Dragon represents wisdom.
 
 Still working on it, Ha ha ha...
 
