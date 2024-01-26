@@ -9,5 +9,6 @@ Tech stack:
 - Next/React
 - Typescript
 - Tailwindcss
+- Python
 - Node.js
 - Auth0
